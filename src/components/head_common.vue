@@ -1,24 +1,38 @@
 <template>
     <div class="common_head">
-        <div class="icon_to_left">
+        <div class="icon_to_left" @click='back'>
             <a href="javascript:;">
-                <div class="turn fll"></div>
+                <div class="turn fll">
+                </div>
             </a>
+        </div>
+        <div class="title">
+            登录
         </div>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+    methods: {
+        back() {
+            this.$router.back(-1);
+        }
+    }
+};
 </script>
 <style lang="scss" scoped>
 .common_head {
     height: 44px;
     background-color: #c50206;
-    border-bottom: 1px solid #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
     .turn {
-        height: 10px;
-        width: 10px;
+        height: 12px;
+        width: 12px;
         border: 1px solid #fff;
         border-left: none;
         border-bottom: none;
@@ -27,6 +41,14 @@ export default {};
         top: 12px;
         bottom: 12px;
         left: 12px;
+    }
+    .title {
+        margin: 0 auto;
+        line-height: 44px;
+        text-align: center;
+        font-weight: 300;
+        font-size: 19px;
+        color: #fff;
     }
 }
 </style>

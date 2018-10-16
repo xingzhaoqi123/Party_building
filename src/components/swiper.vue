@@ -1,22 +1,10 @@
 <template>
     <div>
-        <mt-swipe :auto="0" class="swipe" :show-indicators="false">
-            <mt-swipe-item class="swiper_img">
-                <a href=""> <img src="http://oowantxlb.bkt.clouddn.com/upload/rear/749b4f2a7cc56b5c0068545718fd24d4.png" alt="">
-                </a>
-                <div class="swipe_pagination">adsfadsfadsfadsf</div>
-            </mt-swipe-item>
-            <mt-swipe-item class="swiper_img">
-                <a href=""> <img src="http://oowantxlb.bkt.clouddn.com/upload/rear/4bbac18c1f8f6c0521b7b6af2ae8ad6c.png" alt=""></a>
-                <div class="swipe_pagination">adsfadsfadsfadsf</div>
-            </mt-swipe-item>
-            <mt-swipe-item class="swiper_img">
-                <a href=""> <img src="http://oowantxlb.bkt.clouddn.com/upload/rear/66e257fe2b5afdbb6acb8ed1127d06c9.png" alt=""></a>
-                <div class="swipe_pagination">adsfdsfasdfasd</div>
-            </mt-swipe-item>
-            <mt-swipe-item class="swiper_img">
-                <a href=""> <img src="http://oowantxlb.bkt.clouddn.com/upload/rear/46296e429c7cda71b941b99fa3461fd1.png" alt=""></a>
-                <div class="swipe_pagination">adsfadsfadsfadsf</div>
+        <mt-swipe :auto="4000" class="swipe">
+            <mt-swipe-item class="swiper_img" v-for="(item,index) in swiper" :key="index">
+                <div> <img :src="item.imgUrl" alt="" >
+                </div>
+                <div class="swipe_pagination">{{item.title}}</div>
             </mt-swipe-item>
         </mt-swipe>
     </div>
@@ -29,6 +17,36 @@ export default {
     components: {
         Swipe,
         SwipeItem
+    },
+    data() {
+        return {
+            param: {
+                type: 0
+            },
+            swiper: []
+        };
+    },
+    methods: {
+        changepage(id) {
+            console.log(123);
+            this.$router.push({ path: "/newsDetail", query: { newsId: id } });
+        },
+        getswiper() {
+            this.$axios
+                .get("/carousel/carouselList.do", this.param)
+                .then(res => {
+                    if (res.code == 1) {
+                        this.swiper = res.rows;
+                    }
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    },
+    created() {
+        this.getswiper();
     }
 };
 </script>
@@ -46,17 +64,20 @@ export default {
 //     background-color: #000;
 // }
 .swipe {
-    height: 225px;
+    height: 187.5px;
     background-color: #ccc;
     display: block;
     width: 100%;
+    overflow: auto;
     .swiper_img {
+        // overflow: hidden;
+        background-size: cover;
+        background-position: 50%;
         img {
             display: block;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: 50%;
+            height: auto;
         }
     }
 }

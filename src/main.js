@@ -5,9 +5,14 @@ import App from "./App";
 import router from "./router";
 import Mint from "mint-ui";
 import "lib-flexible";
-Vue.config.productionTip = false;
+import util from "./util/index";
+
 Vue.use(Mint);
+Vue.config.productionTip = false;
+Vue.prototype.$axios = util.axios;
+
 /* eslint-disable no-new */
+
 new Vue({
   el: "#app",
   router,

@@ -6,7 +6,7 @@
                     <img src="../../images/logo.png" alt="党建e家">
                 </div>
                 <div class="login flr">
-                    <router-link to="/login">
+                    <router-link to="/login" style='text-decoration: none'>
                         <p>登录</p>
                     </router-link>
                 </div>
@@ -57,13 +57,29 @@
                 </a>
             </div>
         </div>
+        <div class="banner">
+            <img src="../../images/banner01.png" alt="">
+        </div>
+        <div class="table">
+            <div class="table_left nav"></div>
+            <div class="table_mid nav">
+                <a href="" class="table_item"></a>
+                <a href="" class="table_item"></a>
+            </div>
+            <div class="table_right nav">
+                <a href="" class="table_item"></a>
+                <a href="" class="table_item"></a>
+            </div>
+        </div>
+        <foot></foot>
     </div>
 </template>
 
 <script>
 import swiper from "../../components/swiper";
+import foot from "../../components/footer";
 export default {
-    components: { swiper },
+    components: { swiper, foot },
     data() {
         return {};
     }
@@ -71,6 +87,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.table {
+    margin-top: -3px;
+    position: relative;
+    height: 165px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    background-image: url("../../images/tese.png");
+    background-size: cover;
+    z-index: -1;
+    margin-bottom: 46px;
+    .nav {
+        flex: 1;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        .table_item {
+            flex: 1;
+        }
+    }
+}
+.banner {
+    img {
+        width: 100%;
+    }
+}
 .menuList {
     height: 197px;
     display: flex;
@@ -97,25 +140,30 @@ export default {
     }
 }
 .swiper {
+    margin-top: 44px;
     margin-left: auto;
     margin-right: auto;
     position: relative;
     overflow: hidden;
-    z-index: 1;
+    z-index: -1;
 }
 .head_wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
     background-color: #c50206;
     height: 44px;
     .head_contain {
         padding: 5px;
         .head_logo {
             img {
-                width: 146px;
+                width: 133px;
             }
         }
         .login {
             p {
-                text-decoration: none;
                 cursor: pointer;
                 padding-right: 2px;
                 padding-left: 2px;
