@@ -1,10 +1,10 @@
 <template>
     <div class="inform">
         <div class="head_wrap">
-            <div class="head_title">通知早知道</div>
+            <div class="head_title">{{title}}</div>
         </div>
         <div class="inform_table">
-            <div class="inform_content" v-for="(item,index) in inform" :key='index'>
+            <div class="inform_content" v-for="(item,index) in inform" :key='index' @click="skip(item.newsId)">
                 <div class="inform_notice">
                     <img src="../../images/iconfont_gonggaotongzhi.png" alt="">
                 </div>
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <span class="no_data">没有数据了</span>
+        <span class="no_data" v-if="">没有数据了</span>
         <foot></foot>
     </div>
 </template>
@@ -24,9 +24,10 @@ import foot from "../../components/footer";
 import axios from "axios";
 import { Indicator } from "mint-ui";
 export default {
-    components: { foot},
+    components: { foot },
     data() {
         return {
+            title:'通知早知道',
             inform: [],
             param: {
                 page: 1,
@@ -36,6 +37,15 @@ export default {
         };
     },
     methods: {
+        skip(id){
+            this.$router.push({
+                name:'newsDetail',
+                params:{
+                    id:id,
+                    title:this.title
+                }
+            })
+        },
         gettime(time) {
             let date = new Date(time);
             let year = date.getFullYear();

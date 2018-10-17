@@ -1,6 +1,6 @@
 <template>
     <div class="login_bg">
-        <head_common></head_common>
+        <head_common :title='title'></head_common>
         <div class="login_content">
             <div class="party_logo">
                 <img src="../../images/logo.png" alt="">
@@ -17,7 +17,12 @@
 <script>
 import head_common from "../../components/head_common";
 export default {
-    components: { head_common }
+    components: { head_common },
+    data() {
+        return {
+            title: "登录"
+        };
+    }
 };
 </script>
 <style lang="scss">

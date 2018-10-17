@@ -8,7 +8,11 @@ const components = {
   login: () => import("../views/login"),
   inform: () => import("../views/inform"),
   my_party: () => import("../views/my_party"),
-  newsDetail: () => import("../views/newsDetail")
+  newsDetail: () => import("../views/newsDetail"),
+  newseye: () => import("../views/newseye"),
+  life: () => import("../views/life"),
+  anytimephoto: () => import("../views/anytimephoto")
+  // study:()=>import('../views/newseye')
 };
 export default new Router({
   routes: [
@@ -39,11 +43,42 @@ export default new Router({
       component: components.my_party
     },
     {
-      path: "/newsDetail",
-      meta: {
-        name: "随时随地学"
-      },
+      path: "/newsDetail/:id",
+      name: "newsDetail",
       component: components.newsDetail
+    },
+    {
+      path: "/newseye",
+      name: "newseye",
+      component: components.newseye
+    },
+    {
+      path: "/life",
+      meta: {
+        name: "掌上组织生活"
+      },
+      component: components.life
+    },
+    {
+      path: "/study",
+      name: "study",
+      meta: {
+        name: "政治学习"
+      },
+      component: components.newseye
+    },
+    {
+      path: "/anytimestudy",
+      name: "anytimestudy",
+      component: components.newseye
+    },
+    {
+      path: "/anytimephoto",
+      name:'anytimephoto',
+      meta:{
+        name:'随时随地拍'
+      },
+      component:components.anytimephoto
     }
   ]
 });

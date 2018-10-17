@@ -7,13 +7,19 @@
             </a>
         </div>
         <div class="title">
-            登录
+            {{title}}
         </div>
     </div>
 </template>
 
 <script>
 export default {
+    props: {
+        title: {
+            type: String,
+            required: true
+        }
+    },
     methods: {
         back() {
             this.$router.back(-1);

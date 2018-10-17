@@ -2,9 +2,11 @@
     <div>
         <mt-swipe :auto="4000" class="swipe">
             <mt-swipe-item class="swiper_img" v-for="(item,index) in swiper" :key="index">
-                <div> <img :src="item.imgUrl" alt="" >
+                <div @click="skip(item.url)">
+                    <div> <img :src="item.imgUrl" alt="">
+                    </div>
+                    <div class="swipe_pagination">{{item.title}}</div>
                 </div>
-                <div class="swipe_pagination">{{item.title}}</div>
             </mt-swipe-item>
         </mt-swipe>
     </div>
@@ -20,6 +22,7 @@ export default {
     },
     data() {
         return {
+            title: "随时随地学",
             param: {
                 type: 0
             },
@@ -27,9 +30,14 @@ export default {
         };
     },
     methods: {
-        changepage(id) {
-            console.log(123);
-            this.$router.push({ path: "/newsDetail", query: { newsId: id } });
+        skip(id) {
+            this.$router.push({
+                name: `newsDetail`,
+                params: {
+                    title: this.title,
+                    id: id
+                }
+            });
         },
         getswiper() {
             this.$axios
@@ -38,7 +46,6 @@ export default {
                     if (res.code == 1) {
                         this.swiper = res.rows;
                     }
-                    console.log(res);
                 })
                 .catch(err => {
                     console.log(err);
@@ -69,6 +76,7 @@ export default {
     display: block;
     width: 100%;
     overflow: auto;
+    cursor: pointer;
     .swiper_img {
         // overflow: hidden;
         background-size: cover;

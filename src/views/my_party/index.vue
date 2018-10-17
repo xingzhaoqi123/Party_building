@@ -7,7 +7,7 @@
             <div class="head_port">
                 <div class="head_top"></div>
                 <div class="head_port_img">
-                    <img src="" alt="">
+                    <img src="../../images/bt_bg.png" alt="">
                 </div>
                 <div class="login_mes">你还没有登录，请登录</div>
             </div>
@@ -19,17 +19,17 @@
                         <div class="item_right flr"><img src="../../images/right.png" alt=""></div>
                     </li>
                     <li class="per_item">
-                         <div class="item_img fll"><img src='../../images/lxjf.png' alt=""></div>
+                        <div class="item_img fll"><img src='../../images/lxjf.png' alt=""></div>
                         <div class="item_title fll">个人量化积分</div>
                         <div class="item_right flr"><img src="../../images/right.png" alt=""></div>
                     </li>
                     <li class="per_item">
-                         <div class="item_img fll"><img src='../../images/xgmm.png' alt=""></div>
+                        <div class="item_img fll"><img src='../../images/xgmm.png' alt=""></div>
                         <div class="item_title fll">修改密码</div>
                         <div class="item_right flr"><img src="../../images/right.png" alt=""></div>
                     </li>
                     <li class="per_item">
-                         <div class="item_img fll"><img src='../../images/icon3.png' alt=""></div>
+                        <div class="item_img fll"><img src='../../images/icon3.png' alt=""></div>
                         <div class="item_title fll">党费缴纳</div>
                         <div class="item_right flr"><img src="../../images/right.png" alt=""></div>
                     </li>
@@ -65,10 +65,14 @@ export default {
         .head_port_img {
             margin: 0 auto;
             top: 38px;
-            border-radius: 50%;
             width: 62.5px;
             height: 62.5px;
-            background-color: #fff;
+            border-radius: 50%;
+            img {
+                width: 62.5px;
+                border-radius: 50%;
+                height: 62.5px;
+            }
         }
         .login_mes {
             margin-top: 5px;
