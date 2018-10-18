@@ -31,11 +31,10 @@ export default {
     },
     methods: {
         skip(id) {
-            this.$router.push({
-                name: `newsDetail`,
-                params: {
+          this.$router.push({
+                path: `/newsDetail/${id}`,
+                query: {
                     title: this.title,
-                    id: id
                 }
             });
         },

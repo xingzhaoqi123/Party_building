@@ -35,6 +35,7 @@
                     </li>
                 </ul>
             </div>
+             <!-- <button class="login_btn" @click="logout">退出</button> -->
         </div>
         <foot></foot>
     </div>

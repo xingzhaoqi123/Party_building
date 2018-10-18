@@ -53,13 +53,18 @@ export default {
         };
     },
     methods: {
+        hasmore() {
+            if (this.param.page == this.total) {
+                this.more = false;
+            } else {
+                this.more = true;
+            }
+        },
         skip(id) {
             this.$router.push({
-                name: `newsDetail`,
-                params: {
-                    title: this.title,
-                    id: id,
-                    type: ""
+                path: `/newsDetail/${id}`,
+                query: {
+                    title: this.title
                 }
             });
         },
@@ -107,9 +112,11 @@ export default {
         }
     },
     created() {
-        this.param.type = this.$route.params.type;
-        this.title = this.$route.params.title;
+        this.param.type = this.$route.query.type;
+        this.title = this.$route.query.title;
+        // console.log(this.$route.query);
         this.getnewList();
+        this.hasmore();
     }
 };
 </script>

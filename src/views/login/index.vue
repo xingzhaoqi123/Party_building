@@ -5,11 +5,12 @@
             <div class="party_logo">
                 <img src="../../images/logo.png" alt="">
             </div>
-            <form action="" class="login_form">
-                <input type="text" placeholder="身份证号" class="id_card frame">
-                <input type="text" placeholder="密码" class="password frame">
-                <button class="login_btn">登录</button>
-            </form>
+            <div class="login_form">
+                <input type="text" placeholder="身份证号" v-model="msg.id_card" class="id_card frame">
+                <input type="text" placeholder="密码" v-model="msg.password" class="password frame">
+                <button class="login_btn" @click="login">登录</button>
+               
+            </div>
         </div>
     </div>
 </template>
@@ -20,8 +21,40 @@ export default {
     components: { head_common },
     data() {
         return {
-            title: "登录"
+            title: "登录",
+            msg: {
+                id_card: "1001",
+                password: "123456"
+            },
+            person_info: {},
+            token: ""
         };
+    },
+    methods: {
+        login() {
+            var formData = new FormData();
+            formData.append("id_card", this.msg.id_card);
+            formData.append("password", this.msg.password);
+            this.$axios
+                .post("/user/userLogin.do", formData)
+                .then(res => {
+                    this.person_info = res.data.data;
+                    this.$store.commit("SET_TOKEN", res.data.token);
+
+                    if (this.$store.state.token) {
+                        this.$router.push("/");
+                        console.log(store.state.token);
+                    } else {
+                        this.$router.replace("/login");
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+        logout() {
+            this.$store.commit("DEL_TOKEN");
+        }
     }
 };
 </script>

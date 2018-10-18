@@ -6,16 +6,17 @@ import router from "./router";
 import Mint from "mint-ui";
 import "lib-flexible";
 import util from "./util/index";
+import store from "./store";
 
 Vue.use(Mint);
 Vue.config.productionTip = false;
 Vue.prototype.$axios = util.axios;
 
-/* eslint-disable no-new */
 
 new Vue({
   el: "#app",
   router,
+  store,
   components: { App },
   template: "<App/>"
 });

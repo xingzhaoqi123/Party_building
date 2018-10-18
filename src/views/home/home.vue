@@ -7,7 +7,7 @@
                 </div>
                 <div class="login flr">
                     <router-link to="/login" style='text-decoration: none'>
-                        <p>登录</p>
+                        <p v-show="this.islogin">登录</p>
                     </router-link>
                 </div>
             </div>
@@ -17,7 +17,7 @@
         </div>
         <div class="menuList">
             <div class="table_row">
-                <router-link :to="{name:'newseye',params:{title:'信工新闻眼',type:'0'}}">
+                <router-link :to="{path:'/newseye',query:{title:'信工新闻眼',type:'0'}}">
                     <a href="">
                         <div class="menuItem">
                             <img src="../../images/icon_01.png" alt="信工新闻眼" class="menuItem_img">
@@ -33,7 +33,7 @@
                         </div>
                     </a>
                 </router-link>
-                <router-link to="/neweye">
+                <router-link :to="{name:'interaction'}">
                     <a href="">
                         <div class="menuItem">
                             <img src="../../images/icon_05.png" alt="党员云互动" class="menuItem_img">
@@ -43,7 +43,7 @@
                 </router-link>
             </div>
             <div class="table_row">
-                <router-link to="/neweye">
+                <router-link :to="{path:'/newseye',query:{title:'党建一点通',type:'3'}}">
                     <a href="">
                         <div class="menuItem">
                             <img src="../../images/icon_04.png" alt="党建一点通" class="menuItem_img">
@@ -51,7 +51,7 @@
                         </div>
                     </a>
                 </router-link>
-                <router-link to="/neweye">
+                <router-link :to="{path:'/newseye',query:{title:'党员亮身份',type:'5'}}">
                     <a href="">
                         <div class="menuItem">
                             <img src="../../images/icon_06.png" alt="党员亮身份" class="menuItem_img">
@@ -59,7 +59,7 @@
                         </div>
                     </a>
                 </router-link>
-                <router-link to="/neweye">
+                <router-link :to="{path:'/today',query:{title:'党史上的今天'}}">
                     <a href="">
                         <div class="menuItem">
                             <img src="../../images/icon_02.png" alt="党史上的今天" class="menuItem_img">
@@ -75,15 +75,15 @@
         <div class="table">
             <div class="table_left nav"></div>
             <div class="table_mid nav">
-                <router-link :to="{name:'anytimestudy',params:{title:'随时随地学',type:'6'}}" class="table_item">
+                <router-link :to="{path:'/anytimestudy',query:{title:'随时随地学',type:'6'}}" class="table_item">
                 </router-link>
-                <router-link :to="{name:'anytimephoto',params:{title:'随时随地拍',type:'6'}}" class="table_item">
+                <router-link :to="{path:'/System',query:{title:'制度建设',type:'4'}}" class="table_item">
                 </router-link>
             </div>
             <div class="table_right nav">
-                <router-link :to="{name:'anytimephoto',params:{title:'随时随地拍',type:'7'}}" class="table_item">
+                <router-link :to="{path:'/anytimephoto',query:{title:'随时随地拍',type:'7'}}" class="table_item">
                 </router-link>
-                <router-link :to="{name:'anytimestudy',params:{title:'随时随地学',type:'6'}}" class="table_item">
+                <router-link :to="{path:'/activity',query:{title:'特色活动',type:'1'}}" class="table_item">
                 </router-link>
             </div>
         </div>
@@ -97,9 +97,18 @@ import foot from "../../components/footer";
 export default {
     components: { swiper, foot },
     data() {
-        return {};
+        return {
+            islogin: false
+        };
     },
-    methods: {}
+    methods: {},
+    created() {
+        if (this.$store.state.token) {
+            this.islogin = false;
+        } else {
+            this.islogin = true;
+        }
+    }
 };
 </script>
 

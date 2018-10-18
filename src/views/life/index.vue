@@ -5,7 +5,7 @@
             <div class="life_img"><img src="../../images/timg.jpg" alt=""></div>
             <div class="life_nav">
                 <div class="rows">
-                    <router-link :to="{name:'study',params:{title:'政治学习',type:'8'}}">
+                    <router-link :to="{path:'/study',query:{title:'政治学习',type:'8'}}">
                         <a href="">
                             <div class="rows_p"><img src="../../images/icon1.png" alt="">
                                 <p>政治学习</p>
