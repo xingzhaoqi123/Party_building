@@ -23,9 +23,11 @@
                     <div class="rows_p"><img src="../../images/icon4.png" alt="">
                         <p>民主评议</p>
                     </div>
+                     <router-link :to="{path:'/findorg'}">
                     <div class="rows_p"><img src="../../images/icon5.png" alt="">
                         <p>流动党员找组织</p>
                     </div>
+                     </router-link>
                     <div class="last"><img src="../../images/icon1.png" alt=""></div>
                 </div>
             </div>

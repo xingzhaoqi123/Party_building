@@ -13,7 +13,13 @@ const components = {
   life: () => import("../views/life"),
   anytimephoto: () => import("../views/anytimephoto"),
   today: () => import("../views/today"),
-  interaction: () => import("../views/interaction")
+  interaction: () => import("../views/interaction"),
+  info: () => import("../views/info"),
+  score: () => import("../views/score"),
+  scoredetail: () => import("../views/scoredetail"),
+  uppass: () => import("../views/uppass"),
+  pay:()=>import('../views/pay'),
+  findorg:()=>import('../views/findorg')
 };
 
 if (sessionStorage.getItem("token")) {
@@ -119,6 +125,68 @@ const router = new Router({
         requireAuth: true
       },
       component: components.interaction
+    },
+    {
+      path: "/info",
+      name: "info",
+      meta: {
+        name: "个人信息",
+        requireAuth: true
+      },
+      component: components.info
+    },
+    {
+      path: "/updateInfo",
+      name: "updateInfo",
+      meta: {
+        name: "修改个人信息",
+        requireAuth: true
+      },
+      component: components.info
+    },
+    {
+      path: "/score",
+      name: "score",
+      meta: {
+        name: "个人量化积分",
+        requireAuth: true
+      },
+      component: components.score
+    },
+    {
+      path: "/scoredetail",
+      name: "scoredetail",
+      meta: {
+        requireAuth: true,
+        name: "积分明细"
+      },
+      component: components.scoredetail
+    },
+    {
+      path: "/uppass",
+      name: "uppass",
+      meta: {
+        name: "修改密码",
+        requireAuth: true
+      },
+      component: components.uppass
+    },{
+      path:'/pay',
+      name:'pay',
+      meta:{
+        name:'缴纳党费',
+        requireAuth: true
+      },
+      component:components.pay
+    },
+    {
+      path:'/findorg',
+      name:'findorg',
+      meta:{
+        name:'流动党员找组织',
+        requireAuth: true
+      },
+      component:components.findorg
     }
   ]
 });
@@ -132,7 +200,7 @@ router.beforeEach((to, from, next) => {
         query: { redirect: to.fullPath }
       });
     }
-  }else{
+  } else {
     next();
   }
 });

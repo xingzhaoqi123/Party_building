@@ -9,22 +9,61 @@
         <div class="title">
             {{title}}
         </div>
+        <!-- <div class="editor flr clearfix"  v-show="$router.path == '/info' || '/updateInfo'">{{txt}}</div> -->
     </div>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
+            editor: "",
+            txt:''
+        };
+    },
     props: {
         title: {
             type: String,
             required: true
-        }
+        },
+        // txt:{
+        //     type:String,
+        //     required:true
+        // }
     },
     methods: {
+        // skip() {
+        //     switch (this.$route.path) {
+        //         case "/info":
+        //             this.geteditor();
+        //             return this.$router.push({ name: "updateInfo" });
+        //         case "/updateInfo":
+        //             this.geteditor();
+        //             return this.$router.push({ name: "info" });
+        //     }
+        // },
+        // geteditor() {
+        //     switch (this.$route.path) {
+        //         case "/info":
+        //             // this.skip();
+        //             return (this.editor = "编辑");
+        //         case "/updateInfo":
+        //             // this.skip();
+        //             return (this.editor = "保存");
+        //         default:
+        //             return (this.editor = "");
+        //     }
+        // },
         back() {
             this.$router.back(-1);
         }
-    }
+    },
+    // watch: {
+    //     editor: "skip"
+    // },
+    // created() {
+    //     this.geteditor();
+    // }
 };
 </script>
 <style lang="scss" scoped>
@@ -55,6 +94,15 @@ export default {
         font-weight: 300;
         font-size: 19px;
         color: #fff;
+    }
+    .editor {
+        line-height: 20px;
+        color: #fff;
+        font-size: 19px;
+        position: absolute;
+        top: 12px;
+        bottom: 12px;
+        right: 12px;
     }
 }
 </style>

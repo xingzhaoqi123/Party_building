@@ -13,29 +13,31 @@
             </div>
             <div class="per_msg">
                 <ul>
-                    <li class="per_item">
+                    <li class="per_item" @click="$router.push({name:'info'})">
                         <div class="item_img fll"><img src='../../images/person.png' alt=""></div>
                         <div class="item_title fll">个人信息</div>
                         <div class="item_right flr"><img src="../../images/right.png" alt=""></div>
                     </li>
-                    <li class="per_item">
+                    <li class="per_item" @click="$router.push({name:'score'})">
                         <div class="item_img fll"><img src='../../images/lxjf.png' alt=""></div>
                         <div class="item_title fll">个人量化积分</div>
                         <div class="item_right flr"><img src="../../images/right.png" alt=""></div>
                     </li>
-                    <li class="per_item">
+                    <li class="per_item" @click="$router.push({name:'uppass'})">
                         <div class="item_img fll"><img src='../../images/xgmm.png' alt=""></div>
                         <div class="item_title fll">修改密码</div>
                         <div class="item_right flr"><img src="../../images/right.png" alt=""></div>
                     </li>
-                    <li class="per_item">
+                    <li class="per_item" @click="$router.push({name:'pay'})">
                         <div class="item_img fll"><img src='../../images/icon3.png' alt=""></div>
                         <div class="item_title fll">党费缴纳</div>
                         <div class="item_right flr"><img src="../../images/right.png" alt=""></div>
                     </li>
                 </ul>
             </div>
-             <!-- <button class="login_btn" @click="logout">退出</button> -->
+            <div class="logout" v-show="this.$store.state.token">
+                <button class="logout_btn" @click="logout">退出登录</button>
+            </div>
         </div>
         <foot></foot>
     </div>
@@ -45,14 +47,35 @@
 import foot from "../../components/footer";
 import head_common from "../../components/head_common";
 export default {
-    components: { foot, head_common }
+    components: { foot, head_common },
+    methods: {
+        logout() {
+            this.$store.commit("DEL_TOKEN");
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
+.logout {
+    height: 87px;
+    padding: 10px;
+}
+.logout_btn {
+    width: 100%;
+    font-size: 16px;
+    transform: translateY(50%);
+    height: 47px;
+    margin: 10px auto;
+    background-color: #ef473a;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+}
 .party_content {
     width: 100%;
     height: 100%;
+    position: relative;
     z-index: 1;
     margin-top: 43px;
     .head_port {

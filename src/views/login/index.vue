@@ -9,7 +9,7 @@
                 <input type="text" placeholder="身份证号" v-model="msg.id_card" class="id_card frame">
                 <input type="text" placeholder="密码" v-model="msg.password" class="password frame">
                 <button class="login_btn" @click="login">登录</button>
-               
+
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@ export default {
                 id_card: "1001",
                 password: "123456"
             },
-            person_info: {},
+            // person_info: {},
             token: ""
         };
     },
@@ -38,7 +38,7 @@ export default {
             this.$axios
                 .post("/user/userLogin.do", formData)
                 .then(res => {
-                    this.person_info = res.data.data;
+                    // this.person_info = res.data.data;
                     this.$store.commit("SET_TOKEN", res.data.token);
 
                     if (this.$store.state.token) {
@@ -51,9 +51,6 @@ export default {
                 .catch(err => {
                     console.log(err);
                 });
-        },
-        logout() {
-            this.$store.commit("DEL_TOKEN");
         }
     }
 };

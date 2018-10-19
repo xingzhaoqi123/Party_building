@@ -28,9 +28,9 @@ instance.interceptors.response.use(
           store.commit("DEL_TOKEN");
 
           // 只有在当前路由不是登录页面才跳转
-          router.currentRoute.path !== "login" &&
+          router.currentRoute.path !== "/login" &&
             router.replace({
-              path: "login",
+              path: "/login",
               query: { redirect: router.currentRoute.path }
             });
       }
