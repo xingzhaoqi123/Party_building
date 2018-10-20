@@ -8,7 +8,6 @@ import 'mint-ui/lib/style.css'
 import "lib-flexible";
 import util from "./util/index";
 import store from "./store";
-
 Vue.use(Mint);
 Vue.config.productionTip = false;
 Vue.prototype.$axios = util.axios;

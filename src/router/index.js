@@ -19,7 +19,8 @@ const components = {
   scoredetail: () => import("../views/scoredetail"),
   uppass: () => import("../views/uppass"),
   pay:()=>import('../views/pay'),
-  findorg:()=>import('../views/findorg')
+  findorg:()=>import('../views/findorg'),
+  interactionDetail:()=>import('../views/interactionDetail')
 };
 
 if (sessionStorage.getItem("token")) {
@@ -187,6 +188,15 @@ const router = new Router({
         requireAuth: true
       },
       component:components.findorg
+    },
+    {
+      path:'/interactionDetail',
+      name:'interactionDetail',
+      meta:{
+        name:'党员云互动',
+        requireAuth: true
+      },
+      component:components.interactionDetail
     }
   ]
 });
