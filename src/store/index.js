@@ -5,7 +5,8 @@ import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
-    token: ""
+    token: "",
+    userinfo: {}
   },
   mutations: {
     SET_TOKEN(state, token) {
@@ -15,6 +16,12 @@ const store = new Vuex.Store({
     DEL_TOKEN(state) {
       state.token = "";
       sessionStorage.removeItem("token");
+      state.userinfo = {};
+      sessionStorage.removeItem("userinfo");
+    },
+    GET_USERINFO(state, userinfo) {
+      state.userinfo = userinfo;
+      sessionStorage.userinfo = userinfo;
     }
   },
   plugins: [

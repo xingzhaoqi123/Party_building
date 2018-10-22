@@ -5,7 +5,7 @@
             <div class="item" v-for="(item,index) in newsList" :key="item.index">
                 <div class="item_content">
                     <div class="item_top">
-                        <div class="head"><img :src="item.header" alt="" v-if="item.header">params.header</div>
+                        <div class="head"><img :src="item.header" alt="" v-if="item.header"><img v-else src="../../images/头像.png" alt=""></div>
                         <div class="msg">
                             <div class="username">{{item.username}}</div>
                             <div class="time">

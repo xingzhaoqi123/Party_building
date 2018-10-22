@@ -40,10 +40,10 @@ export default {
                 .then(res => {
                     // this.person_info = res.data.data;
                     this.$store.commit("SET_TOKEN", res.data.token);
-
+                    this.$store.commit("GET_USERINFO", res.data.data);
                     if (this.$store.state.token) {
-                        this.$router.push("/");
-                        console.log(store.state.token);
+                        this.$router.push("/my_party");
+                        // console.log(this.$store.state.token);
                     } else {
                         this.$router.replace("/login");
                     }

@@ -9,39 +9,40 @@
         <div class="title">
             {{title}}
         </div>
-        <!-- <div class="editor flr clearfix"  v-show="$router.path == '/info' || '/updateInfo'">{{txt}}</div> -->
+        <div v-show="$router.path == '/info' || '/updateInfo'" @click="skip">
+            <div class="editor flr clearfix" v-show="$route.path == '/info'">编辑</div>
+            <div class="editor flr clearfix" v-show="$route.path == '/updateInfo'" @click="save">保存</div>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     data() {
-        return {
-            editor: "",
-            txt:''
-        };
+        return {};
     },
     props: {
         title: {
             type: String,
             required: true
         },
-        // txt:{
-        //     type:String,
-        //     required:true
-        // }
+        per_info: {
+            type: Object,
+            required: true
+        }
     },
     methods: {
-        // skip() {
-        //     switch (this.$route.path) {
-        //         case "/info":
-        //             this.geteditor();
-        //             return this.$router.push({ name: "updateInfo" });
-        //         case "/updateInfo":
-        //             this.geteditor();
-        //             return this.$router.push({ name: "info" });
-        //     }
-        // },
+        save() {
+            // console.log(this.per_info);
+        },
+        skip() {
+            switch (this.$route.path) {
+                case "/info":
+                    return this.$router.push({ name: "updateInfo" });
+                case "/updateInfo":
+                    return this.$router.push({ name: "info" });
+            }
+        },
         // geteditor() {
         //     switch (this.$route.path) {
         //         case "/info":
@@ -61,9 +62,9 @@ export default {
     // watch: {
     //     editor: "skip"
     // },
-    // created() {
-    //     this.geteditor();
-    // }
+    created() {
+        // this.geteditor();
+    }
 };
 </script>
 <style lang="scss" scoped>

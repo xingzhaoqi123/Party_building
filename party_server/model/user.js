@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 var user = new mongoose.Schema(
   {
-    avator: String,
+    avatar: String,
     idcard: {
       type: String,
       unique: true,
       required: true
     },
-    password: String
+    password: String,
+    username:String,
   },
   {
     versionKey: false,

@@ -1,7 +1,7 @@
 <template>
     <div class="page">
         <head_common :title='title'></head_common>
-        <div id="container" class="map">sdddddddddddddddddd</div>
+        <div id="container" class="map"></div>
     </div>
 </template>
 
@@ -75,7 +75,6 @@ export default {
         width: 100%;
         height: 623px;
         overflow: auto;
-        background-color: red;
     }
 }
 </style>

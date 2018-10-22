@@ -1,27 +1,31 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
-}
+    name: "App"
+};
 </script>
 
 <style>
-*{
-  margin: 0;
-  padding: 0;
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
-.fll{
-  float: left;
+.fll {
+    float: left;
 }
-.flr{
-  float: right;
+.flr {
+    float: right;
 }
- .clearfix:after{
+.clearfix:after {
     display: block;
     clear: both;
     content: "";

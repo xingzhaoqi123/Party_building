@@ -21,6 +21,7 @@ router.post("/login", async (req, res) => {
   try {
     const { idcard, password } = req.body;
     const loginData = await userModel.findOne({ idcard });
+    // res.send(loginData);
     if (!loginData) {
       res.json({
         code: 400,
@@ -29,12 +30,12 @@ router.post("/login", async (req, res) => {
     } else {
       if (password && password == loginData.password) {
         req.session.user = loginData;
-        res.code({
+        res.json({
           code: 200,
           msg: "登陆成功",
           userData: {
             username: loginData.username,
-            avatar: loginData.avatar
+            avatar:loginData.avatar
           }
         });
       } else {
@@ -49,6 +50,7 @@ router.post("/login", async (req, res) => {
       code: 400,
       msg: err
     });
+    next(err);
   }
 });
 

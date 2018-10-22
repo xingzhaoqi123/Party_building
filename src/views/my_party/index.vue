@@ -7,9 +7,10 @@
             <div class="head_port">
                 <div class="head_top"></div>
                 <div class="head_port_img">
-                    <img src="../../images/bt_bg.png" alt="">
+                    <img :src=" $store.state.userinfo.header" alt="" v-if="$store.state.userinfo.header">
+                    <img v-else src="../../images/bt_bg.png" alt="">
                 </div>
-                <div class="login_mes">你还没有登录，请登录</div>
+                <div class="login_mes">{{$store.state.token == '' ? '你还没有登录，请登录' : $store.state.userinfo.username}}</div>
             </div>
             <div class="per_msg">
                 <ul>
