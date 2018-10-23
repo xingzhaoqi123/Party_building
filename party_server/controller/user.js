@@ -1,6 +1,32 @@
 var express = require("express");
 var router = express.Router();
 var userModel = require("../model/user");
+var JwtUtil = require("../public/utils/jwt");
+var auth = require("./auth");
+router.post("/add", auth, async (req, res) => {
+  try {
+    let { username, password, avatar, nickname, sex, desc } = req.body;
+    const data = await userModel.create({
+      username,
+      password,
+      avatar,
+      nickname,
+      sex,
+      desc
+    });
+    res.json({
+      code: 200,
+      msg: "新建管理员成功",
+      data
+    });
+  } catch (err) {
+    res.json({
+      code: 400,
+      msg: err
+    });
+    next(err);
+  }
+});
 
 router.get("/logout", (req, res) => {
   if (req.session.user) {
@@ -19,9 +45,8 @@ router.get("/logout", (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { idcard, password } = req.body;
-    const loginData = await userModel.findOne({ idcard });
-    // res.send(loginData);
+    const { username, password } = req.body;
+    const loginData = await userModel.findOne({ username });
     if (!loginData) {
       res.json({
         code: 400,
@@ -30,12 +55,20 @@ router.post("/login", async (req, res) => {
     } else {
       if (password && password == loginData.password) {
         req.session.user = loginData;
+
+        let _id = loginData._id.str;
+        let jwt = new JwtUtil(_id);
+        let token = jwt.generateToken();
+
         res.json({
           code: 200,
           msg: "登陆成功",
+          token: token,
           userData: {
-            username: loginData.username,
-            avatar:loginData.avatar
+            nickname: loginData.nickname,
+            avatar: loginData.avatar,
+            desc: loginData.desc,
+            sex: loginData.sex
           }
         });
       } else {

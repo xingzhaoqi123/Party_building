@@ -10,7 +10,7 @@
             {{title}}
         </div>
         <div v-show="$router.path == '/info' || '/updateInfo'" @click="skip">
-            <div class="editor flr clearfix" v-show="$route.path == '/info'">编辑</div>
+            <div class="editor flr clearfix" v-show="$route.path == '/info'" @click="$emit('editor', 'false')">编辑</div>
             <div class="editor flr clearfix" v-show="$route.path == '/updateInfo'" @click="save">保存</div>
         </div>
     </div>
@@ -21,6 +21,7 @@ export default {
     data() {
         return {};
     },
+    // props: ["title", "per_info"],
     props: {
         title: {
             type: String,
@@ -33,13 +34,24 @@ export default {
     },
     methods: {
         save() {
+            this.$emit("editor", "true");
+            let fm = new FormData();
+            for (let o in this.per_info) {
+                fm.append(o, this.per_info[o]);
+            }
+            console.log(fm);
             // console.log(this.per_info);
+            // this.$axios.post("/user/modifyInfo.do").then(res => {
+            //     console.log(res);
+            // });
         },
         skip() {
             switch (this.$route.path) {
                 case "/info":
+                    // this.$emit("editor", "false");
                     return this.$router.push({ name: "updateInfo" });
                 case "/updateInfo":
+                    // this.$emit("editor", "true");
                     return this.$router.push({ name: "info" });
             }
         },

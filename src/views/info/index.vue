@@ -1,11 +1,11 @@
 <template>
     <div>
-        <head_common :title='title' :per_info='per_info'></head_common>
+        <head_common :title='title' :per_info='xzq' v-on:editor="editor"></head_common>
         <ul class="per_info_list">
             <li class="per_info">
                 <p class="left">头像</p>
-                <input class="file" type="file" ref="file" @click="getFile" v-bind:disabled="ifEditor">
-                <img :src="per_info.header" alt="" v-if="per_info.header != '' ">
+                <input class="file" type="file" ref="file" accept="image/gif,image/jpeg,image/jpg,image/png" @change="changeImage($event)" v-bind:disabled="ifEditor">
+                <img :src="header" alt="" v-if="header != '' ">
                 <img src="../../images/头像.png" v-else alt="">
             </li>
             <li class="per_info">
@@ -107,9 +107,14 @@ export default {
     components: { head_common, Indicator, Field },
     data() {
         return {
-            ifEditor: false ,
+            ifEditor: false,
             title: "",
             per_info: {},
+            header: "",
+            xzq: {
+                a: 123,
+                b: 111
+            },
             partyStatus: [
                 {
                     id: "0",
@@ -127,9 +132,36 @@ export default {
         };
     },
     methods: {
-        getFile() {
-            console.log(this.$refs.file.files);
+        editor: function(data) {
+            this.ifEditor = data;
         },
+        changeImage: function(e) {
+            let file = e.target.files[0];
+            let imgDataUrl = this.getObjectURL(file);
+            // console.log(imgDataUrl);
+            this.header = imgDataUrl;
+            let formData = new FormData();
+            formData.append("myFile", file);
+            this.$axios.post("/image/uploadBase64.do", formData).then(res => {
+                // console.log(res.data);
+                this.per_info.header = res.data.url;
+            });
+        },
+        getObjectURL(file) {
+            let url = null;
+            if (window.createObjectURL != undefined) {
+                // basic
+                url = window.createObjectURL(file);
+            } else if (window.URL != undefined) {
+                // webkit or chrome
+                url = window.URL.createObjectURL(file);
+            } else if (window.URL != undefined) {
+                // mozilla(firefox)
+                url = window.URL.createObjectURL(file);
+            }
+            return url;
+        },
+
         getinfo() {
             Indicator.open({
                 text: "Loading...",
@@ -141,6 +173,7 @@ export default {
                     if (res.code === 1) {
                         Indicator.close();
                         this.per_info = res.data;
+                        this.header = res.data.header;
                     }
                 })
                 .catch(err => {

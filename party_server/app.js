@@ -3,17 +3,19 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var mongooseConnection = require("./model/config");
+var session = require("express-session");
+var MongoStore = require("connect-mongo")(session);
 var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
-var session = require("express-session");
 var app = express();
 app.use(
   session({
     secret: "xingzq",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }
+    cookie: { secure: false },
+    store: new MongoStore({ mongooseConnection: mongooseConnection })
   })
 );
 // view engine setup

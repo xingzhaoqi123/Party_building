@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
-const user = require("../controller/user");
+// const user = require("../controller/user");
 
-router.use(user);
+router.use('/admin',require('../controller/user'));
 
 module.exports = router;
