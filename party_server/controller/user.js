@@ -1,22 +1,49 @@
 var express = require("express");
 var router = express.Router();
 var userModel = require("../model/user");
-var JwtUtil = require("../public/utils/jwt");
+// var JwtUtil = require("../public/utils/jwt");
 var auth = require("./auth");
+
+router.get("/list", auth, async (req, res, next) => {
+  try {
+    let { page = 1, page_size = 10 } = req.query;
+    page = parseInt(page);
+    page_size = parseInt(page_size);
+
+    const dataList = await userModel
+      .find()
+      .select("-password")
+      .skip((page - 1) * page_size)
+      .limit(page_size).sort({_id:-1});
+    res.json({
+      code: 200,
+      dataList,
+      msg:'success'
+    });
+  } catch (err) {
+    res.json({
+      code: 400,
+      msg: "获取失败"
+    });
+    next(err);
+  }
+});
+
 router.post("/add", auth, async (req, res) => {
   try {
-    let { username, password, avatar, nickname, sex, desc } = req.body;
+    let { username, password, avatar, nickname, sex, desc,phone } = req.body;
     const data = await userModel.create({
       username,
       password,
       avatar,
       nickname,
       sex,
+      phone,
       desc
     });
     res.json({
       code: 200,
-      msg: "新建管理员成功",
+      msg: "添加管理员成功",
       data
     });
   } catch (err) {
@@ -56,14 +83,14 @@ router.post("/login", async (req, res) => {
       if (password && password == loginData.password) {
         req.session.user = loginData;
 
-        let _id = loginData._id.str;
-        let jwt = new JwtUtil(_id);
-        let token = jwt.generateToken();
+        // let _id = loginData._id.str;
+        // let jwt = new JwtUtil(_id);
+        // let token = jwt.generateToken();
 
         res.json({
           code: 200,
           msg: "登陆成功",
-          token: token,
+          // token: token,
           userData: {
             nickname: loginData.nickname,
             avatar: loginData.avatar,

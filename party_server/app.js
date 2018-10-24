@@ -6,6 +6,7 @@ var mongooseConnection = require("./model/config");
 var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
 var logger = require("morgan");
+var JwtUtil = require("./public/utils/jwt");
 
 var indexRouter = require("./routes/index");
 var app = express();
@@ -18,6 +19,28 @@ app.use(
     store: new MongoStore({ mongooseConnection: mongooseConnection })
   })
 );
+
+//对所有需要进行验证身份信息的接口进行拦截，并验证token的合法性
+//  登录和添加用户验证token 去掉了
+// app.use(function(req, res, next) {
+//   if (req.url != "/admin/login" && req.url != '/admin/add') {
+//     let token = req.headers.token;
+//     let jwt = new JwtUtil(token);
+//     let result = jwt.verifyToken();
+//     if (result == "err") {
+//       console.log(result);
+//       res.json({
+//         code: 403,
+//         msg: "登录已过期，请重新登录"
+//       });
+//     } else {
+//       next();
+//     }
+//   } else {
+//     next();
+//   }
+// });
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
