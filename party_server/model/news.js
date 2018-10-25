@@ -13,7 +13,10 @@ var news = new mongoose.Schema(
         type:mongoose.SchemaTypes.ObjectId,
         ref:'category'
     },
-    looknumber:Number,
+    looknumber:{
+      type:Number,
+      default:0
+    },
   },
   {
     versionKey: false,

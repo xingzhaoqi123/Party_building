@@ -36,7 +36,7 @@ router.post("/add", auth, async (req, res, next) => {
     next(err);
   }
 });
-router.get("/news", auth, async (req, res, next) => {
+router.get("/all", auth, async (req, res, next) => {
   try {
     let { page = 1, page_size = 10 } = req.query;
     page = parseInt(page);
@@ -45,20 +45,36 @@ router.get("/news", auth, async (req, res, next) => {
       .find()
       .skip((page - 1) * page_size)
       .limit(page_size)
-      .populate({ path: "user", select: "-password" })
-      .populate({ path: "category" })
+      .populate({ path: "author", select: "-password" })
+      .populate({ path: "type" })
+      
       .sort({ _id: -1 });
     res.json({
       code: 200,
       data
     });
   } catch (err) {
-      res.json({
-          code:400,
-          msg:err
-      })
+    res.json({
+      code: 400,
+      msg: err
+    });
     next(err);
   }
 });
-
+router.get("/:id", async (req, res, next) => {
+  try {
+    let { id } = req.params;
+    const data =await newsModel
+      .findById( id )
+      .populate({ path: "author", select: "-password" })
+      .populate({ path: "type" });
+    res.json({
+      code: 200,
+      data,
+      msg: "获取成功"
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 module.exports = router;

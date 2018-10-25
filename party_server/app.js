@@ -6,7 +6,7 @@ var mongooseConnection = require("./model/config");
 var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
 var logger = require("morgan");
-var JwtUtil = require("./public/utils/jwt");
+// var JwtUtil = require("./public/utils/jwt");
 
 var indexRouter = require("./routes/index");
 var app = express();

@@ -4,9 +4,23 @@ var userModel = require("../model/user");
 // var JwtUtil = require("../public/utils/jwt");
 var auth = require("./auth");
 
+router.get("/user/:id", auth, async (req, res, next) => {
+  try {
+    let { id } = req.params;
+    const data = await userModel.findById(id);
+    res.json({
+      code: 200,
+      data,
+      msg: "查询成功"
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/list", auth, async (req, res, next) => {
   try {
-    let { page = 1, page_size = 10 } = req.query;
+   let { page = 1, page_size = 10 } = req.query;
     page = parseInt(page);
     page_size = parseInt(page_size);
 
@@ -14,11 +28,12 @@ router.get("/list", auth, async (req, res, next) => {
       .find()
       .select("-password")
       .skip((page - 1) * page_size)
-      .limit(page_size).sort({_id:-1});
+      .limit(page_size)
+      .sort({ _id: -1 });
     res.json({
       code: 200,
       dataList,
-      msg:'success'
+      msg: "success"
     });
   } catch (err) {
     res.json({
@@ -29,9 +44,9 @@ router.get("/list", auth, async (req, res, next) => {
   }
 });
 
-router.post("/add", auth, async (req, res) => {
+router.post("/add", auth, async (req, res, next) => {
   try {
-    let { username, password, avatar, nickname, sex, desc,phone } = req.body;
+    const { username, password, avatar, nickname, sex, desc, phone } = req.body;
     const data = await userModel.create({
       username,
       password,
@@ -55,7 +70,7 @@ router.post("/add", auth, async (req, res) => {
   }
 });
 
-router.get("/logout", (req, res) => {
+router.get("/logout", (req, res, next) => {
   if (req.session.user) {
     req.session.user = null;
     res.json({
@@ -70,7 +85,7 @@ router.get("/logout", (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
     const loginData = await userModel.findOne({ username });
