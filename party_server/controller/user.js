@@ -148,10 +148,12 @@ router.post("/login", async (req, res, next) => {
           msg: "登陆成功",
           token: token,
           userData: {
+            id: loginData._id,
             nickname: loginData.nickname,
             avatar: loginData.avatar,
             desc: loginData.desc,
-            sex: loginData.sex
+            sex: loginData.sex,
+            phone: loginData.phone
           }
         });
       } else {

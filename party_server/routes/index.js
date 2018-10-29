@@ -7,10 +7,12 @@ router.use("/admin", require("../controller/user"));
 router.use("/admin/news", require("../controller/news"));
 router.use("/admin/category", require("../controller/category"));
 router.use("/admin/swiper", require("../controller/swiper"));
+router.use("/", require("../controller/token"));
 
 // app.use(function(req, res, next) {
+
 router.use("/", (req, res, next) => {
-  if (req.url != "/admin/login" && req.url != "/admin/add") {
+  if (req.url != "/admin/login" && req.url != "/admin/add" && req.url  != '/getToken') {
     let token = req.headers.token;
     let jwt = new JwtUtil(token);
     let result = jwt.verifyToken();
